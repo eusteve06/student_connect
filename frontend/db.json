@@ -1,0 +1,48 @@
+{
+  "metrics": {
+    "totalApplications": 3,
+    "interviewsScheduled": 1,
+    "offersReceived": 1,
+    "pendingReview": 1
+  },
+  "applications": [
+    {
+      "id": "1",
+      "firm": "Apex Tech Solutions",
+      "role": "Frontend Developer Intern",
+      "date": "May 20, 2026",
+      "status": "Interviewing",
+      "statusColor": "info"
+    },
+    {
+      "id": "2",
+      "firm": "Global Finance Corp",
+      "role": "Software Engineering Trainee",
+      "date": "May 14, 2026",
+      "status": "Pending Review",
+      "statusColor": "warning"
+    },
+    {
+      "id": "3",
+      "firm": "Vanguard Cyber Security",
+      "role": "IT Support & Systems Intern",
+      "date": "May 02, 2026",
+      "status": "Approved",
+      "statusColor": "success"
+    }
+  ],
+  "placements": [
+    {
+      "id": "v-101",
+      "title": "Full Stack Engineer Intern",
+      "firmName": "Nexus Labs",
+      "location": "Remote"
+    },
+    {
+      "id": "v-102",
+      "title": "UI/UX Designer Trainee",
+      "firmName": "Pixel Craft",
+      "location": "Nairobi, KE"
+    }
+  ]
+}

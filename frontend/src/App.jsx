@@ -1,6 +1,5 @@
 
-import Button from './components/common/Button'
-import Navbar from './components/layouts/Navbar'
+import StudentDashboard from './features/student/views/StudentDashboard'
 import './index.css'
 
 function App() {
@@ -8,7 +7,7 @@ function App() {
 
   return (
     <>
-     <Button/> 
+     <StudentDashboard />;
     </>
   )
 }
