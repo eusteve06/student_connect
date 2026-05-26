@@ -2,11 +2,12 @@ import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 
 // Import View Templates
 import StudentAuth from '../features/auth/StudentAuth';
+import FirmAuth from '../features/auth/FirmAuth';
 import StudentDashboard from '../features/student/views/StudentDashboard';
 import FirmDashboard from '../features/firms/views/FirmDashboad';
 import UniversityDashboard from '../features/university/views/UniversityDashboard';
 
-// Remaining Auth Placeholders (To be replaced later when building their modules)
+// Remaining Auth Placeholders (To be replaced later)
 const LoginPlaceholder = ({ role }) => (
   <div className="flex h-screen items-center justify-center bg-slate-50">
     <div className="p-8 bg-white rounded-xl border border-portal-border shadow-sm max-w-sm w-full text-center">
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/login/firm',
-    element: <LoginPlaceholder role="firm" />,
+    element: <FirmAuth />
   },
   {
     path: '/login/university',
