@@ -3,22 +3,11 @@ import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 // Import View Templates
 import StudentAuth from '../features/auth/StudentAuth';
 import FirmAuth from '../features/auth/FirmAuth';
+import UniversityAuth from '../features/auth/UniversityAuth';
 import StudentDashboard from '../features/student/views/StudentDashboard';
 import FirmDashboard from '../features/firms/views/FirmDashboad';
 import UniversityDashboard from '../features/university/views/UniversityDashboard';
 
-// Remaining Auth Placeholders (To be replaced later)
-const LoginPlaceholder = ({ role }) => (
-  <div className="flex h-screen items-center justify-center bg-slate-50">
-    <div className="p-8 bg-white rounded-xl border border-portal-border shadow-sm max-w-sm w-full text-center">
-      <h2 className="text-xl font-bold text-portal-text uppercase tracking-wider mb-2">{role} Portal</h2>
-      <p className="text-sm text-portal-muted mb-6">Authentication Interface Placeholder</p>
-      <a href={`/${role}`} className="block w-full py-2.5 px-4 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors">
-        Bypass Login (Dev Mode)
-      </a>
-    </div>
-  </div>
-);
 
 const router = createBrowserRouter([
   {
@@ -36,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/login/university',
-    element: <LoginPlaceholder role="university" />,
+    element: <UniversityAuth />,
   },
   
   // 2. Secured Multi-Tenant Dashboard View Group
