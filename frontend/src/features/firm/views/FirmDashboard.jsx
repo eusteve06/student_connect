@@ -1,6 +1,6 @@
 import DashboardLayout from  '../../../components/layouts/DashboardLayout'
 import MetricCard from '../../../components/data-display/MetricCard';
-import ApplicantRow from '../../firms/components/ApplicationRow';
+import ApplicantRow from '../../firm/components/ApplicationRow';
 import Button from  '../../../components/common/Button';
 
 // Mock Dataset representing payloads from your future Axios service layer
