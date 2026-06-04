@@ -1,4 +1,3 @@
-import DashboardLayout from  '../../../components/layouts/DashboardLayout'
 import MetricCard from '../../../components/data-display/MetricCard';
 import ApplicantRow from '../../firm/components/ApplicationRow';
 import Button from  '../../../components/common/Button';
@@ -18,7 +17,7 @@ const MOCK_VACANCIES = [
 
 export default function FirmDashboard() {
   return (
-    <DashboardLayout role="firm">
+    <>
       {/* 1. Header View Layer */}
       <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -107,6 +106,6 @@ export default function FirmDashboard() {
         </div>
 
       </div>
-    </DashboardLayout>
+    </>
   );
 }

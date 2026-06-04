@@ -67,7 +67,9 @@ const router = createBrowserRouter([
     path: '/firm',
     element: <FirmShell />,
     children: [
-      { path: '', element: <FirmDashboard /> }               // Maps to: /firm
+      { path: '', element: <FirmDashboard /> },
+      
+      { path: 'applicants', element: <FirmDashboard /> }// Maps to: /firm
     ]
   },
   {
