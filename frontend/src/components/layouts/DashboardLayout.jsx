@@ -36,6 +36,18 @@ export default function DashboardLayout({ children, role = 'student' }) {
         { label: 'Registry Central', path: '/university' },
         { label: 'Compliance Audits', path: '/university/audits' }
       ]
+    },
+    admin: {
+      title: "Root Control Plane",
+      color: "text-rose-500",
+      bgHover: "hover:bg-rose-50/60 hover:text-rose-900",
+      activeClass: "bg-rose-50 text-rose-900 border-rose-200 font-bold",
+      links: [
+        { label: 'Control Center', path: '/admin' },
+        { label: 'Student Portal', path: '/student' },
+        { label: 'Corporate Portal', path: '/firm' },
+        { label: 'Faculty Portal', path: '/university' }
+      ]
     }
   };
 
@@ -84,8 +96,12 @@ export default function DashboardLayout({ children, role = 'student' }) {
             <AssetPlaceholder type="avatar" name="User Identity" className="h-8 w-8 text-[10px] text-slate-300" />
             <div className="flex-1 min-w-0">
               <span className="block text-xs font-bold text-slate-200 truncate">Vetted Session</span>
-              <button 
-                onClick={() => navigate('/')} 
+              <button
+                onClick={() => {
+                  localStorage.removeItem('token');
+                  localStorage.removeItem('admin');
+                  navigate(role === 'admin' ? '/login/admin' : '/');
+                }}
                 className="block text-[10px] text-slate-500 font-bold hover:text-rose-400 transition-colors uppercase tracking-wider mt-0.5"
               >
                 Terminate Session
