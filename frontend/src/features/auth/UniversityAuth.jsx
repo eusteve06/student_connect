@@ -1,4 +1,3 @@
-// src/features/auth/UniversityAuth.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/common/Button';
@@ -26,86 +25,57 @@ export default function UniversityAuth() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#F7F6F3] font-['Georgia',_serif] antialiased selection:bg-indigo-100 selection:text-indigo-900">
-
-      {/* LEFT COLUMN: Academic Presentation Canvas */}
-      <div className="hidden lg:flex lg:w-5/12 bg-[#1A1438] text-white p-14 flex-col justify-between relative overflow-hidden">
-
-        {/* Layered background */}
-        <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#a5b4fc_1px,transparent_1px)] [background-size:24px_24px]" />
-        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-indigo-500/10 blur-3xl" />
-        <div className="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-violet-400/8 blur-3xl" />
-
-        {/* Top badge */}
-        <div className="relative z-10">
-          <span className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-indigo-300 bg-indigo-400/10 border border-indigo-400/20 px-3.5 py-1.5 rounded-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
-            Internal Operations
-          </span>
-
-          <h1 className="text-[2.15rem] font-bold tracking-tight mt-8 max-w-sm leading-snug text-white">
-            Academic Operations &<br />
-            <span className="text-indigo-300">Compliance Gateway</span>
+    <div className="flex min-h-screen bg-slate-50 font-sans antialiased selection:bg-indigo-100 selection:text-indigo-900">
+      
+      <div className="hidden lg:flex lg:w-5/12 bg-slate-950 text-white p-16 flex-col justify-between relative overflow-hidden border-r border-slate-900">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
+        
+        <div className="relative z-10 space-y-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-800 shadow-inner">
+            <span className="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-300">Internal Operations</span>
+          </div>
+          <h1 className="text-4xl font-extrabold tracking-tight text-slate-100 leading-tight">
+            Academic Operations & Compliance Gateway
           </h1>
-
-          <p className="mt-5 text-sm text-slate-400 leading-relaxed max-w-xs font-['ui-sans-serif',_system-ui,_sans-serif]">
-            Oversee attachment matrices, approve industrial partner credentials, and audit student–supervisor pairings.
-          </p>
         </div>
 
-        {/* Divider + quote */}
-        <div className="relative z-10 max-w-sm">
-          <div className="w-10 h-px bg-indigo-400 mb-6" />
-          <blockquote className="text-base font-normal text-slate-300 leading-relaxed italic">
-            "A unified administrative layer for every stage of the institutional attachment lifecycle."
+        <div className="relative z-10 max-w-md border-l-2 border-indigo-500 pl-6 my-auto">
+          <blockquote className="text-xl font-medium text-slate-300 leading-relaxed tracking-wide font-serif italic">
+            "Oversee university attachment matrices, approve industrial partner credentials, and audit student supervisor pairings."
           </blockquote>
-          <p className="text-[10px] text-slate-500 mt-4 font-semibold uppercase tracking-[0.18em] font-['ui-sans-serif',_system-ui,_sans-serif]">
-            Strathmore Administrative Registry
-          </p>
+          <p className="text-[11px] text-indigo-400 mt-4 font-bold uppercase tracking-widest">Strathmore Administrative Registry</p>
         </div>
 
-        {/* Footer */}
-        <div className="relative z-10 text-[10px] text-slate-600 tracking-wide font-['ui-sans-serif',_system-ui,_sans-serif]">
-          © 2026 University Placement System · Official Use Only
+        <div className="relative z-10 text-[11px] text-slate-500 font-medium tracking-wide">
+          © 2026 University Placement System. Official Use Only.
         </div>
       </div>
 
-      {/* RIGHT COLUMN: Form */}
-      <div className="w-full lg:w-7/12 flex items-center justify-center p-6 sm:p-14 bg-white">
-        <div className="w-full max-w-md">
-
-          {/* Mobile brand mark */}
-          <div className="lg:hidden mb-8 text-center">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-indigo-500 font-['ui-sans-serif',_system-ui,_sans-serif]">
-              Admin Console
-            </span>
-          </div>
-
-          {/* Header */}
-          <div className="mb-9">
-            <h2 className="text-2xl font-bold text-[#1A1438] tracking-tight leading-tight">
-              {isRegistering ? 'Create faculty console' : 'Administrative sign in'}
+      <div className="w-full lg:w-7/12 flex items-center justify-center p-8 sm:p-16 bg-white shadow-2xl relative">
+        <div className="w-full max-w-md space-y-10">
+          
+          <div className="text-center lg:text-left space-y-3">
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+              {isRegistering ? 'Create Faculty Console' : 'Administrative Sign In'}
             </h2>
-            <p className="text-[13px] text-slate-400 mt-2 font-['ui-sans-serif',_system-ui,_sans-serif]">
+            <p className="text-sm text-slate-500 font-medium">
               {isRegistering ? 'Already have access?' : 'Need staff console access?'}{' '}
-              <button
+              <button 
                 type="button"
                 onClick={() => setIsRegistering(!isRegistering)}
-                className="font-semibold text-indigo-600 hover:text-indigo-400 underline underline-offset-2 decoration-dotted transition-colors focus:outline-none"
+                className="font-bold text-indigo-600 hover:text-indigo-700 transition-colors underline decoration-indigo-200 underline-offset-4 hover:decoration-indigo-600 focus:outline-none"
               >
-                {isRegistering ? 'Sign in here' : 'Request clearance'}
+                {isRegistering ? 'Sign In here' : 'Request clearance'}
               </button>
             </p>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
-
             {isRegistering && (
-              <div>
-                <label className="block text-[10px] font-bold text-[#1A1438] uppercase tracking-[0.15em] mb-2 font-['ui-sans-serif',_system-ui,_sans-serif]">
-                  Full Name / Academic Title
-                </label>
+              <div className="space-y-1.5">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Full Name / Academic Title</label>
                 <input
                   type="text"
                   name="facultyName"
@@ -113,16 +83,14 @@ export default function UniversityAuth() {
                   value={formData.facultyName}
                   onChange={handleInputChange}
                   placeholder="e.g., Prof. Evans Kiprop"
-                  className="w-full text-sm bg-[#F7F6F3] border border-[#E2DDD8] rounded-lg px-4 py-3 text-[#1A1438] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/15 focus:border-indigo-500 focus:bg-white transition-all duration-200 font-['ui-sans-serif',_system-ui,_sans-serif]"
+                  className="w-full text-sm border border-slate-200 rounded-xl px-4 py-3 bg-slate-50/50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all duration-200"
                 />
               </div>
             )}
 
             {isRegistering && (
-              <div>
-                <label className="block text-[10px] font-bold text-[#1A1438] uppercase tracking-[0.15em] mb-2 font-['ui-sans-serif',_system-ui,_sans-serif]">
-                  Staff Identification Number
-                </label>
+              <div className="space-y-1.5">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Staff Identification Number</label>
                 <input
                   type="text"
                   name="staffId"
@@ -130,40 +98,34 @@ export default function UniversityAuth() {
                   value={formData.staffId}
                   onChange={handleInputChange}
                   placeholder="e.g., ST-XXXX"
-                  className="w-full text-sm bg-[#F7F6F3] border border-[#E2DDD8] rounded-lg px-4 py-3 text-[#1A1438] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/15 focus:border-indigo-500 focus:bg-white transition-all duration-200 font-['ui-sans-serif',_system-ui,_sans-serif]"
+                  className="w-full text-sm border border-slate-200 rounded-xl px-4 py-3 bg-slate-50/50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all duration-200"
                 />
               </div>
             )}
 
             {isRegistering && (
-              <div>
-                <label className="block text-[10px] font-bold text-[#1A1438] uppercase tracking-[0.15em] mb-2 font-['ui-sans-serif',_system-ui,_sans-serif]">
-                  Primary Faculty / Department
-                </label>
+              <div className="space-y-1.5">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Primary Faculty / Department</label>
                 <div className="relative">
                   <select
                     name="department"
                     value={formData.department}
                     onChange={handleInputChange}
-                    className="w-full text-sm bg-[#F7F6F3] border border-[#E2DDD8] rounded-lg px-4 py-3 text-[#1A1438] appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-500/15 focus:border-indigo-500 focus:bg-white transition-all duration-200 font-['ui-sans-serif',_system-ui,_sans-serif]"
+                    className="w-full text-sm border border-slate-200 rounded-xl px-4 py-3 bg-slate-50/50 text-slate-900 appearance-none focus:outline-none focus:bg-white focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all duration-200"
                   >
                     <option value="Computer Science">Faculty of IT (FIT)</option>
                     <option value="Business">Strathmore Business School (SBS)</option>
                     <option value="Engineering">School of Engineering</option>
                   </select>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
-                    <svg className="fill-current h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                    </svg>
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                   </div>
                 </div>
               </div>
             )}
 
-            <div>
-              <label className="block text-[10px] font-bold text-[#1A1438] uppercase tracking-[0.15em] mb-2 font-['ui-sans-serif',_system-ui,_sans-serif]">
-                Institutional Email Address
-              </label>
+            <div className="space-y-1.5">
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Institutional Email Address</label>
               <input
                 type="email"
                 name="email"
@@ -171,20 +133,14 @@ export default function UniversityAuth() {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="username@strathmore.edu"
-                className="w-full text-sm bg-[#F7F6F3] border border-[#E2DDD8] rounded-lg px-4 py-3 text-[#1A1438] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/15 focus:border-indigo-500 focus:bg-white transition-all duration-200 font-['ui-sans-serif',_system-ui,_sans-serif]"
+                className="w-full text-sm border border-slate-200 rounded-xl px-4 py-3 bg-slate-50/50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all duration-200"
               />
             </div>
 
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <label className="block text-[10px] font-bold text-[#1A1438] uppercase tracking-[0.15em] font-['ui-sans-serif',_system-ui,_sans-serif]">
-                  Security Key
-                </label>
-                {!isRegistering && (
-                  <a href="#" className="text-[11px] text-slate-400 hover:text-indigo-500 transition-colors font-['ui-sans-serif',_system-ui,_sans-serif]">
-                    Recovery options?
-                  </a>
-                )}
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Security Key</label>
+                {!isRegistering && <a href="#" className="text-xs font-semibold text-slate-400 hover:text-indigo-600 transition-colors">Recovery options?</a>}
               </div>
               <input
                 type="password"
@@ -193,40 +149,28 @@ export default function UniversityAuth() {
                 value={formData.password}
                 onChange={handleInputChange}
                 placeholder="••••••••"
-                className="w-full text-sm bg-[#F7F6F3] border border-[#E2DDD8] rounded-lg px-4 py-3 text-[#1A1438] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/15 focus:border-indigo-500 focus:bg-white transition-all duration-200 font-['ui-sans-serif',_system-ui,_sans-serif]"
+                className="w-full text-sm border border-slate-200 rounded-xl px-4 py-3 bg-slate-50/50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all duration-200"
               />
             </div>
 
-            <div className="pt-1">
-              <Button
-                type="submit"
-                className="w-full bg-[#1A1438] hover:bg-indigo-700 text-white text-[13px] font-semibold py-3 rounded-lg border-0 shadow-none tracking-wide transition-colors duration-200 font-['ui-sans-serif',_system-ui,_sans-serif]"
-              >
+            <div className="pt-4">
+              <Button type="submit" className="w-full h-12">
                 {isRegistering ? 'Submit Verification Request' : 'Authorize Console'}
               </Button>
             </div>
           </form>
 
-          {/* Portal Switcher Footer */}
-          <div className="border-t border-[#E2DDD8] mt-10 pt-7 text-center font-['ui-sans-serif',_system-ui,_sans-serif]">
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              Are you an attachment student or commercial partner?
-            </p>
-            <p className="text-[11px] mt-2">
-              <span className="text-slate-500">Switch to{' '}</span>
-              <a href="/login/student" className="font-semibold text-[#1E4D8C] hover:underline underline-offset-2 transition-colors">
-                Student Hub
-              </a>
-              <span className="text-slate-300 mx-2">·</span>
-              <a href="/login/firm" className="font-semibold text-emerald-700 hover:underline underline-offset-2 transition-colors">
-                Corporate Gate
-              </a>
+          <div className="border-t border-slate-100 pt-8 text-center">
+            <p className="text-xs text-slate-400 font-medium">
+              Are you an attachment student or commercial partner? <br />
+              <span className="inline-block mt-3 text-slate-500 font-medium">
+                Switch to <a href="/login/student" className="text-slate-900 font-bold hover:text-indigo-600 transition-colors underline decoration-slate-300 underline-offset-4">Student Hub</a> or <a href="/login/firm" className="text-slate-900 font-bold hover:text-indigo-600 transition-colors underline decoration-slate-300 underline-offset-4">Corporate Gate</a>
+              </span>
             </p>
           </div>
 
         </div>
       </div>
-
     </div>
   );
 }

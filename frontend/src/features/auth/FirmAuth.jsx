@@ -1,4 +1,3 @@
-// src/features/auth/FirmAuth.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/common/Button';
@@ -26,136 +25,109 @@ export default function FirmAuth() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#F7F6F3] font-['Georgia',_serif]">
-
-      {/* LEFT COLUMN: Corporate Brand Canvas */}
-      <div className="hidden lg:flex lg:w-1/2 bg-[#0A1F14] text-white p-14 flex-col justify-between relative overflow-hidden">
-
-        {/* Layered background */}
-        <div className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(to_right,#a3c4a8_1px,transparent_1px),linear-gradient(to_bottom,#a3c4a8_1px,transparent_1px)] bg-[size:32px_32px]" />
-        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-emerald-400/8 blur-3xl translate-x-1/3 -translate-y-1/4" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-emerald-600/10 blur-3xl -translate-x-1/3 translate-y-1/4" />
-
-        {/* Top badge */}
-        <div className="relative z-10">
-          <span className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-3.5 py-1.5 rounded-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Corporate Gateway
-          </span>
-
-          <h1 className="text-[2.15rem] font-bold tracking-tight mt-8 max-w-sm leading-snug text-white">
-            Secure the Future of<br />
-            <span className="text-emerald-400">Technical Excellence</span>
+    <div className="flex min-h-screen bg-slate-50 font-sans antialiased selection:bg-amber-100 selection:text-amber-900">
+      
+      {/* Left Decorative Core Panel */}
+      <div className="hidden lg:flex lg:w-5/12 bg-slate-950 text-white p-16 flex-col justify-between relative overflow-hidden border-r border-slate-900">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl" />
+        
+        <div className="relative z-10 space-y-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-800 shadow-inner">
+            <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-300">Corporate Portal</span>
+          </div>
+          <h1 className="text-4xl font-extrabold tracking-tight text-slate-100 leading-tight">
+            Acquire Top Academic Tech Talent.
           </h1>
-
-          <p className="mt-5 text-sm text-slate-400 leading-relaxed max-w-xs font-['ui-sans-serif',_system-ui,_sans-serif]">
-            Connect with top-tier talent, manage institutional attachments, and evaluate the next generation of industry leaders.
-          </p>
         </div>
 
-        {/* Divider + quote */}
-        <div className="relative z-10 max-w-sm">
-          <div className="w-10 h-px bg-emerald-500 mb-6" />
-          <blockquote className="text-base font-normal text-slate-300 leading-relaxed italic">
-            "Bridging the gap between academic innovation and commercial scale."
+        <div className="relative z-10 max-w-md border-l-2 border-amber-500 pl-6 my-auto">
+          <blockquote className="text-xl font-medium text-slate-300 leading-relaxed tracking-wide font-serif italic">
+            "Directly integrate and evaluate vetted university candidates within your live corporate engineering frameworks."
           </blockquote>
-          <p className="text-[10px] text-slate-500 mt-4 font-semibold uppercase tracking-[0.18em] font-['ui-sans-serif',_system-ui,_sans-serif]">
-            Official Industry Partner Network
-          </p>
+          <p className="text-[11px] text-amber-400 mt-4 font-bold uppercase tracking-widest">Industry Vetting Board</p>
         </div>
 
-        {/* Footer */}
-        <div className="relative z-10 text-[10px] text-slate-600 tracking-wide font-['ui-sans-serif',_system-ui,_sans-serif]">
-          © 2026 Smart Attachment Portal · Enterprise Infrastructure
+        <div className="relative z-10 text-[11px] text-slate-500 font-medium tracking-wide">
+          © 2026 University Placement System. Enterprise Console.
         </div>
       </div>
 
-      {/* RIGHT COLUMN: Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-14 bg-white">
-        <div className="w-full max-w-md">
-
-          {/* Mobile brand mark */}
-          <div className="lg:hidden mb-8 text-center">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-600 font-['ui-sans-serif',_system-ui,_sans-serif]">
-              Corporate Gateway
-            </span>
-          </div>
-
-          {/* Header */}
-          <div className="mb-9">
-            <h2 className="text-2xl font-bold text-[#0A1F14] tracking-tight leading-tight">
-              {isRegistering ? 'Register firm profile' : 'Partner sign in'}
+      {/* Input Core Wrapper Sheet */}
+      <div className="w-full lg:w-7/12 flex items-center justify-center p-8 sm:p-16 bg-white shadow-2xl">
+        <div className="w-full max-w-md space-y-10">
+          
+          <div className="text-center lg:text-left space-y-3">
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+              {isRegistering ? 'Register Corporate Node' : 'Partner Sign In'}
             </h2>
-            <p className="text-[13px] text-slate-400 mt-2 font-['ui-sans-serif',_system-ui,_sans-serif]">
-              {isRegistering ? 'Already a registered partner?' : 'New to the placement network?'}{' '}
-              <button
+            <p className="text-sm text-slate-500 font-medium">
+              {isRegistering ? 'Already cleared?' : 'Want to list vacancies?'}{' '}
+              <button 
                 type="button"
                 onClick={() => setIsRegistering(!isRegistering)}
-                className="font-semibold text-emerald-700 hover:text-emerald-500 underline underline-offset-2 decoration-dotted transition-colors focus:outline-none"
+                className="font-bold text-amber-600 hover:text-amber-700 transition-colors underline decoration-amber-200 underline-offset-4 hover:decoration-amber-600 focus:outline-none"
               >
-                {isRegistering ? 'Sign in here' : 'Request access'}
+                {isRegistering ? 'Sign In here' : 'Join as Partner'}
               </button>
             </p>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
+            {isRegistering && (
+              <div className="space-y-1.5">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Company Registered Legal Name</label>
+                <input
+                  type="text"
+                  name="companyName"
+                  required
+                  value={formData.companyName}
+                  onChange={handleInputChange}
+                  placeholder="e.g., TechCorp Solutions Ltd"
+                  className="w-full text-sm border border-slate-200 rounded-xl px-4 py-3 bg-slate-50/50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-4 focus:ring-amber-500/5 focus:border-amber-500 transition-all duration-200"
+                />
+              </div>
+            )}
 
             {isRegistering && (
-              <div className="space-y-5">
-                <div>
-                  <label className="block text-[10px] font-bold text-[#0A1F14] uppercase tracking-[0.15em] mb-2 font-['ui-sans-serif',_system-ui,_sans-serif]">
-                    Company / Registered Name
-                  </label>
-                  <input
-                    type="text"
-                    name="companyName"
-                    required
-                    value={formData.companyName}
-                    onChange={handleInputChange}
-                    placeholder="e.g., Apex Tech Solutions"
-                    className="w-full text-sm bg-[#F7F6F3] border border-[#E2DDD8] rounded-lg px-4 py-3 text-[#0A1F14] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600/15 focus:border-emerald-600 focus:bg-white transition-all duration-200 font-['ui-sans-serif',_system-ui,_sans-serif]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-[10px] font-bold text-[#0A1F14] uppercase tracking-[0.15em] mb-2 font-['ui-sans-serif',_system-ui,_sans-serif]">
-                    Industry Sector
-                  </label>
+              <div className="space-y-1.5">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Industry Sector Domain</label>
+                <div className="relative">
                   <select
                     name="industrySector"
                     value={formData.industrySector}
                     onChange={handleInputChange}
-                    className="w-full text-sm bg-[#F7F6F3] border border-[#E2DDD8] rounded-lg px-4 py-3 text-[#0A1F14] focus:outline-none focus:ring-2 focus:ring-emerald-600/15 focus:border-emerald-600 focus:bg-white transition-all duration-200 font-['ui-sans-serif',_system-ui,_sans-serif]"
+                    className="w-full text-sm border border-slate-200 rounded-xl px-4 py-3 bg-slate-50/50 text-slate-900 appearance-none focus:outline-none focus:bg-white focus:ring-4 focus:ring-amber-500/5 focus:border-amber-500 transition-all duration-200"
                   >
-                    <option value="Technology">Technology &amp; Software</option>
-                    <option value="Finance">Banking &amp; Finance</option>
-                    <option value="Telecommunications">Telecommunications</option>
-                    <option value="CyberSecurity">Cyber Security</option>
+                    <option value="Technology">Financial Technology & Core Software</option>
+                    <option value="Telecommunications">Telecommunications infrastructure</option>
+                    <option value="Banking">Commercial Banking & Asset Capital</option>
                   </select>
-                </div>
-
-                <div>
-                  <label className="block text-[10px] font-bold text-[#0A1F14] uppercase tracking-[0.15em] mb-2 font-['ui-sans-serif',_system-ui,_sans-serif]">
-                    Lead HR / Representative Name
-                  </label>
-                  <input
-                    type="text"
-                    name="contactPerson"
-                    required
-                    value={formData.contactPerson}
-                    onChange={handleInputChange}
-                    placeholder="e.g., Jane Doe"
-                    className="w-full text-sm bg-[#F7F6F3] border border-[#E2DDD8] rounded-lg px-4 py-3 text-[#0A1F14] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600/15 focus:border-emerald-600 focus:bg-white transition-all duration-200 font-['ui-sans-serif',_system-ui,_sans-serif]"
-                  />
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                  </div>
                 </div>
               </div>
             )}
 
-            <div>
-              <label className="block text-[10px] font-bold text-[#0A1F14] uppercase tracking-[0.15em] mb-2 font-['ui-sans-serif',_system-ui,_sans-serif]">
-                Corporate Email Address
-              </label>
+            {isRegistering && (
+              <div className="space-y-1.5">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">HR Lead / Supervisor Name</label>
+                <input
+                  type="text"
+                  name="contactPerson"
+                  required
+                  value={formData.contactPerson}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Jane Mercer"
+                  className="w-full text-sm border border-slate-200 rounded-xl px-4 py-3 bg-slate-50/50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-4 focus:ring-amber-500/5 focus:border-amber-500 transition-all duration-200"
+                />
+              </div>
+            )}
+
+            <div className="space-y-1.5">
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Corporate Email Address</label>
               <input
                 type="email"
                 name="email"
@@ -163,61 +135,44 @@ export default function FirmAuth() {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="recruitment@company.com"
-                className="w-full text-sm bg-[#F7F6F3] border border-[#E2DDD8] rounded-lg px-4 py-3 text-[#0A1F14] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600/15 focus:border-emerald-600 focus:bg-white transition-all duration-200 font-['ui-sans-serif',_system-ui,_sans-serif]"
+                className="w-full text-sm border border-slate-200 rounded-xl px-4 py-3 bg-slate-50/50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-4 focus:ring-amber-500/5 focus:border-amber-500 transition-all duration-200"
               />
             </div>
 
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <label className="block text-[10px] font-bold text-[#0A1F14] uppercase tracking-[0.15em] font-['ui-sans-serif',_system-ui,_sans-serif]">
-                  Account Password
-                </label>
-                {!isRegistering && (
-                  <a href="#" className="text-[11px] text-slate-400 hover:text-emerald-600 transition-colors font-['ui-sans-serif',_system-ui,_sans-serif]">
-                    Reset key?
-                  </a>
-                )}
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">Security Access Key</label>
+                {!isRegistering && <a href="#" className="text-xs font-semibold text-slate-400 hover:text-amber-600 transition-colors">Credential recovery?</a>}
               </div>
               <input
-                name="password"
                 type="password"
+                name="password"
                 required
                 value={formData.password}
                 onChange={handleInputChange}
                 placeholder="••••••••"
-                className="w-full text-sm bg-[#F7F6F3] border border-[#E2DDD8] rounded-lg px-4 py-3 text-[#0A1F14] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600/15 focus:border-emerald-600 focus:bg-white transition-all duration-200 font-['ui-sans-serif',_system-ui,_sans-serif]"
+                className="w-full text-sm border border-slate-200 rounded-xl px-4 py-3 bg-slate-50/50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-4 focus:ring-amber-500/5 focus:border-amber-500 transition-all duration-200"
               />
             </div>
 
-            <div className="pt-1">
-              <Button
-                type="submit"
-                className="w-full bg-[#0A1F14] hover:bg-emerald-700 text-white text-[13px] font-semibold py-3 rounded-lg border-0 shadow-none tracking-wide transition-colors duration-200 font-['ui-sans-serif',_system-ui,_sans-serif]"
-              >
-                {isRegistering ? 'Submit Verification Request' : 'Secure Authorization'}
+            <div className="pt-4">
+              <Button type="submit" className="w-full h-12">
+                {isRegistering ? 'Submit Partnership Request' : 'Authorize Workspace'}
               </Button>
             </div>
           </form>
 
-          {/* Portal Switcher Footer */}
-          <div className="border-t border-[#E2DDD8] mt-10 pt-7 text-center font-['ui-sans-serif',_system-ui,_sans-serif]">
-            <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-[0.18em] mb-3">
-              Switch Authentication Portal
+          <div className="border-t border-slate-100 pt-8 text-center">
+            <p className="text-xs text-slate-400 font-medium">
+              Are you an attachment student or institutional administrator? <br />
+              <span className="inline-block mt-3 text-slate-500 font-medium">
+                Switch to <a href="/login/student" className="text-slate-900 font-bold hover:text-amber-600 transition-colors underline decoration-slate-300 underline-offset-4">Student Hub</a> or Suspend to <a href="/login/university" className="text-slate-900 font-bold hover:text-amber-600 transition-colors underline decoration-slate-300 underline-offset-4">Faculty Portal</a>
+              </span>
             </p>
-            <div className="flex justify-center items-center gap-5">
-              <a href="/login/student" className="text-[11px] font-semibold text-slate-500 hover:text-[#1E4D8C] transition-colors">
-                Student Hub
-              </a>
-              <span className="w-1 h-1 rounded-full bg-slate-300" />
-              <a href="/login/university" className="text-[11px] font-semibold text-slate-500 hover:text-indigo-500 transition-colors">
-                Admin Console
-              </a>
-            </div>
           </div>
 
         </div>
       </div>
-
     </div>
   );
 }

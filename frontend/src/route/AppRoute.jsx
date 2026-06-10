@@ -1,100 +1,59 @@
-// src/routes/AppRoutes.jsx
-import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-router-dom';
 
-// Import Structural Shell Layout
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import UniversityAudits from '../features/university/UniversityAudits';
+import FirmApplicants from '../features/firm/views/FirmApplicants';
+
+// Structural Layouts
 import DashboardLayout from '../components/layouts/DashboardLayout';
 
-// Import View Templates
+// Authorization Gateway Suite
 import StudentAuth from '../features/auth/StudentAuth';
 import FirmAuth from '../features/auth/FirmAuth';
 import UniversityAuth from '../features/auth/UniversityAuth';
+
+// Feature Views
 import StudentDashboard from '../features/student/views/StudentDashboard';
-import StudentLogbook from '../features/student/views/StudentLogBook';
 import StudentMarketplace from '../features/student/views/StudentMarketplace';
+import StudentLogbook from '../features/student/views/StudentLogbook'; // <-- IMPORT CORE VIEW
 import FirmDashboard from '../features/firm/views/FirmDashboard';
 import UniversityDashboard from '../features/university/views/UniversityDashboard';
 
-// 🌟 Structural Layout Shells to provide React Router Context down to dashboards
-const StudentShell = () => (
-  <DashboardLayout role="student">
-    <Outlet />
-  </DashboardLayout>
-);
-
-const FirmShell = () => (
-  <DashboardLayout role="firm">
-    <Outlet />
-  </DashboardLayout>
-);
-
-const UniversityShell = () => (
-  <DashboardLayout role="university">
-    <Outlet />
-  </DashboardLayout>
-);
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Navigate to="/login/student" replace />,
-  },
-  
-  // 1. Authentication Portals Route Group (Unprotected, No Sidebar Layouts)
-  {
-    path: '/login/student',
-    element: <StudentAuth />,
-  },
-  {
-    path: '/login/firm',
-    element: <FirmAuth />
-  },
-  {
-    path: '/login/university',
-    element: <UniversityAuth />,
-  },
-  
-  // 2. Secured Multi-Tenant Dashboard View Groups (Wrapped cleanly in Shell Outlets)
-  {
-    path: '/student',
-    element: <StudentShell />,
-    children: [
-      { path: '', element: <StudentDashboard /> },           // Maps to: /student
-      { path: 'logbook', element: <StudentLogbook /> },       // Maps to: /student/logbook
-      { path: 'placements', element: <StudentMarketplace /> } // Maps to: /student/placements
-    ]
-  },
-  {
-    path: '/firm',
-    element: <FirmShell />,
-    children: [
-      { path: '', element: <FirmDashboard /> },
-      
-      { path: 'applicants', element: <FirmDashboard /> }// Maps to: /firm
-    ]
-  },
-  {
-    path: '/university',
-    element: <UniversityShell />,
-    children: [
-      { path: '', element: <UniversityDashboard /> } ,        // Maps to: /university
-      
-      { path: 'audits', element: <UniversityDashboard /> },    // Maps to: /university/audits
-    ]
-  },
-
-  // 3. Fallback Catch-All Route (404 Handling)
-  {
-    path: '*',
-    element: (
-      <div className="flex h-screen flex-col items-center justify-center text-center">
-        <h1 className="text-4xl font-bold text-portal-text">404</h1>
-        <p className="text-sm text-portal-muted mt-2 mb-4">The requested workspace path does not exist.</p>
-        <a href="/" className="text-xs font-semibold text-indigo-600 hover:underline">Return to safety</a>
-      </div>
-    ),
-  },
-]);
-
 export default function AppRoutes() {
-  return <RouterProvider router={router} />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        
+        {/* FALLBACK REDIRECTS */}
+        <Route path="/" element={<Navigate to="/login/student" replace />} />
+
+        {/* AUTH ARCHITECTURE ENTRIES */}
+        <Route path="/login/student" element={<StudentAuth />} />
+        <Route path="/login/firm" element={<FirmAuth />} />
+        <Route path="/login/university" element={<UniversityAuth />} />
+
+        {/* MOUNTED STUDENT HUB INTERFACE */}
+        <Route path="/student" element={<DashboardLayout role="student"><StudentDashboard /></DashboardLayout>} />
+        <Route path="/student/marketplace" element={<DashboardLayout role="student"><StudentMarketplace /></DashboardLayout>} />
+        <Route path="/student/logbook" element={<DashboardLayout role="student"><StudentLogbook /></DashboardLayout>} /> {/* <-- LINK COMPONENT */}
+
+        {/* MOUNTED CORPORATE WORKSPACE */}
+        <Route path="/firm" element={<DashboardLayout role="firm"><FirmDashboard /></DashboardLayout>} />
+        <Route path="/firm/applicants" element={<DashboardLayout role="firm"><FirmApplicants /></DashboardLayout>} />
+
+        {/* MOUNTED UNIVERSITY REGISTRY */}
+        <Route path="/university" element={<DashboardLayout role="university"><UniversityDashboard /></DashboardLayout>} />
+        <Route path="/university/audits" element={<DashboardLayout role="university"><UniversityAudits /></DashboardLayout>} />
+
+        {/* 404 CATCH-ALL PROTECTION BLOCK */}
+        <Route path="*" element={
+          <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-8 text-center font-sans">
+            <span className="font-mono text-xs font-bold text-slate-400 uppercase tracking-widest block mb-2">Error 404</span>
+            <h1 className="text-xl font-black text-slate-900 tracking-tight">Requested Secure Node Not Found</h1>
+            <a href="/" className="mt-5 text-xs font-bold uppercase text-indigo-600 tracking-wider underline underline-offset-4">Return to Platform Edge</a>
+          </div>
+        } />
+
+      </Routes>
+    </BrowserRouter>
+  );
 }

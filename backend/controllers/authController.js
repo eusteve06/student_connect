@@ -1,45 +1,58 @@
+// controllers/authController.js
 import jwt from 'jsonwebtoken';
-import User from '../models/User.js';
+import bcrypt from 'bcryptjs';
+import { findAccountByEmail, createAccount } from '../data/accounts.js';
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
-};
+const generateToken = (id, role) =>
+  jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: '30d' });
 
-export const registerUser = async (req, res) => {
-  const { name, email, password, role, regNumber, companyName } = req.body;
+// POST /auth/register — create a student, firm, or university account
+export const registerUser = async (req, res, next) => {
+  const { name, email, password, role } = req.body;
+
+  if (!name || !email || !password || !role) {
+    return res.status(400).json({ message: 'name, email, password and role are required.' });
+  }
+  if (!['student', 'firm', 'university'].includes(role)) {
+    return res.status(400).json({ message: `Unsupported role: ${role}` });
+  }
+
   try {
-    const userExists = await User.findOne({ email });
-    if (userExists) return res.status(400).json({ message: 'A profile with this email already exists' });
+    const existing = await findAccountByEmail(email);
+    if (existing) {
+      return res.status(400).json({ message: 'A profile with this email already exists.' });
+    }
 
-    const user = await User.create({ name, email, password, role, regNumber, companyName });
+    const account = await createAccount(req.body);
     res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      token: generateToken(user._id)
+      _id: account.id,
+      name: account.name,
+      email: account.email,
+      role: account.role,
+      token: generateToken(account.id, account.role)
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error);
   }
 };
 
-export const loginUser = async (req, res) => {
+// POST /auth/login — authenticate against any role table and issue a JWT
+export const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
+
   try {
-    const user = await User.findOne({ email });
-    if (user && (await user.matchPassword(password))) {
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        token: generateToken(user._id)
+    const account = await findAccountByEmail(email);
+    if (account && (await bcrypt.compare(password || '', account.password_hash))) {
+      return res.json({
+        _id: account.id,
+        name: account.name,
+        email: account.email,
+        role: account.role,
+        token: generateToken(account.id, account.role)
       });
-    } else {
-      res.status(401).json({ message: 'Invalid credentials provided' });
     }
+    res.status(401).json({ message: 'Invalid credentials provided.' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error);
   }
 };

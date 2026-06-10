@@ -1,159 +1,111 @@
-// src/features/student/views/StudentMarketplace.jsx
 import { useState, useEffect } from 'react';
+import Button from '../../../components/common/Button';
 import AssetPlaceholder from '../../../components/common/AssetPlaceholder';
 import { studentService } from '../../../service/studentService';
 
-// 🌟 THE WORKAROUND: Pure utility function placed completely OUTSIDE the component.
-// React's render engine never scans this block during component lifecycles.
-const buildApplicationPayload = (job) => {
-  const dateString = new Date().toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric'
-  });
-  const randomId = 'app-gen-' + Math.floor(100000 + Math.random() * 900000);
-
-  return {
-    id: randomId,
-    companyName: job.companyName,
-    role: job.role,
-    appliedDate: dateString,
-    status: 'Pending Review'
-  };
-};
-
 export default function StudentMarketplace() {
-  const [vacancies, setVacancies] = useState([]);
-  const [appliedIds, setAppliedIds] = useState([]);
+  const [placements, setPlacements] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [submittingId, setSubmittingId] = useState(null);
 
   useEffect(() => {
-    let isMounted = true;
-
     const fetchMarketplace = async () => {
       try {
         const data = await studentService.getPlacements();
-        if (isMounted) {
-          setVacancies(data || []);
-        }
+        setPlacements(data || []);
       } catch (err) {
         console.error("Marketplace fetch failure:", err);
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        setLoading(false);
       }
     };
-
     fetchMarketplace();
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
-  const handleApply = async (job) => {
-    const applicationPayload = buildApplicationPayload(job);
+  const handleApply = async (placement) => {
+    setSubmittingId(placement.id);
+    const payload = {
+      studentId: "std-01",
+      companyName: placement.company,
+      role: placement.role,
+      appliedDate: new Date().toISOString().split('T')[0],
+      status: "Pending Review"
+    };
 
     try {
-      await studentService.applyForPlacement(applicationPayload);
-      setAppliedIds(prev => [...prev, job.id]);
-      alert(`Success! Application submitted to ${job.companyName}.`);
+      await studentService.applyForPlacement(payload);
+      alert(`Application payload dispatched successfully for ${placement.role}.`);
     } catch (err) {
-      console.error("Application processing error:", err);
+      console.error("Failed to execute application transaction:", err);
+    } finally {
+      setSubmittingId(null);
     }
   };
 
   if (loading) {
     return (
-      <div className="flex h-64 items-center justify-center">
-        <span className="text-[10px] font-semibold text-slate-400 animate-pulse uppercase tracking-[0.2em] font-['ui-sans-serif',_system-ui,_sans-serif]">
-          Sifting through active industry vacancies…
-        </span>
+      <div className="flex h-96 items-center justify-center text-xs font-bold text-slate-400 font-mono animate-pulse uppercase tracking-widest">
+        Syncing market deployment tracks...
       </div>
     );
   }
 
   return (
-    <>
-      {/* View Header */}
-      <div className="mb-8 border-b border-[#E2DDD8] pb-6 relative">
-        <div className="absolute bottom-0 left-0 h-px w-16 bg-[#1E4D8C]" />
-        <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#1E4D8C] bg-blue-50 px-3 py-1 rounded-full border border-blue-100 font-['ui-sans-serif',_system-ui,_sans-serif]">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#1E4D8C]" />
-          Placement Matrix
+    <div className="space-y-10">
+      <div className="border-b border-slate-100 pb-6">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest text-indigo-700 bg-indigo-50 border border-indigo-100 font-mono">
+          Global Nodes Available
         </span>
-        <h1 className="text-[1.75rem] font-bold text-[#0D1B2A] tracking-tight mt-3 font-['Georgia',_serif]">
-          Industrial Attachment Marketplace
-        </h1>
-        <p className="text-[13px] text-slate-400 mt-1.5 font-['ui-sans-serif',_system-ui,_sans-serif]">
-          Browse and apply to active industry placement vacancies.
-        </p>
+        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mt-3">Attachment Marketplace</h1>
       </div>
 
-      {/* Vacancy Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {vacancies.map((job) => {
-          const hasApplied = appliedIds.includes(job.id);
-
-          return (
-            <div
-              key={job.id}
-              className="bg-white rounded-2xl border border-[#E2DDD8] p-6 shadow-[0_2px_16px_0_rgba(13,27,42,0.04)] flex flex-col justify-between hover:border-[#1E4D8C]/30 hover:shadow-[0_4px_24px_0_rgba(30,77,140,0.08)] transition-all duration-200 group"
-            >
-              <div>
-                {/* Company / Role Header */}
-                <div className="flex items-center gap-4 mb-4">
-                  <AssetPlaceholder
-                    type="logo"
-                    name={job.companyName}
-                    className="h-10 w-10 text-xs font-black rounded-xl shrink-0"
-                  />
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        {placements.map((job) => (
+          <div key={job.id} className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm hover:shadow-md flex flex-col justify-between transition-all group">
+            <div className="space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <AssetPlaceholder type="avatar" name={job.company} className="h-10 w-10 text-xs font-bold" />
                   <div>
-                    <h3 className="font-bold text-[#0D1B2A] text-sm leading-snug group-hover:text-[#1E4D8C] transition-colors duration-150 font-['Georgia',_serif]">
-                      {job.role}
-                    </h3>
-                    <p className="text-xs font-medium text-slate-500 mt-0.5 font-['ui-sans-serif',_system-ui,_sans-serif]">
-                      {job.companyName}
-                    </p>
+                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">{job.role}</h3>
+                    <p className="text-xs font-semibold text-slate-400">{job.company}</p>
                   </div>
                 </div>
-
-                {/* Meta tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-2.5 py-1 text-[10px] font-semibold bg-[#F7F6F3] text-slate-500 border border-[#E2DDD8] rounded-md font-['ui-sans-serif',_system-ui,_sans-serif]">
-                    📍 {job.location}
-                  </span>
-                  <span className="px-2.5 py-1 text-[10px] font-semibold bg-[#F7F6F3] text-slate-500 border border-[#E2DDD8] rounded-md font-['ui-sans-serif',_system-ui,_sans-serif]">
-                    ⏱️ {job.duration}
-                  </span>
-                </div>
-
-                {/* Description */}
-                <p className="text-xs text-slate-500 leading-relaxed mb-6 font-['ui-sans-serif',_system-ui,_sans-serif]">
-                  {job.description}
-                </p>
+                <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-50 text-slate-500 border border-slate-100">
+                  {job.duration || '3 Months'}
+                </span>
               </div>
 
-              {/* Action Footer */}
-              <div className="pt-4 border-t border-[#F0EDE8] flex justify-end">
-                <button
-                  type="button"
-                  disabled={hasApplied}
-                  onClick={() => handleApply(job)}
-                  className={`px-5 py-2 text-[12px] font-semibold rounded-lg transition-all duration-150 font-['ui-sans-serif',_system-ui,_sans-serif] ${
-                    hasApplied
-                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-default'
-                      : 'bg-[#0D1B2A] text-white hover:bg-[#1E4D8C]'
-                  }`}
-                >
-                  {hasApplied ? '✓ Application Filed' : 'Submit Application'}
-                </button>
+              <p className="text-xs text-slate-500 leading-relaxed font-medium line-clamp-3">
+                {job.description || "Incorporate into core infrastructure teams running secure operations pipelines and active product sprints."}
+              </p>
+
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {(job.tags || ["Enterprise", "Security", "REST APIs"]).map((tag, idx) => (
+                  <span key={idx} className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-slate-50 text-slate-600 border border-slate-100">
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
-          );
-        })}
+
+            <div className="pt-5 mt-6 border-t border-slate-50 flex items-center justify-between">
+              <div>
+                <span className="block text-[9px] font-bold uppercase text-slate-400 tracking-wider font-mono">Deployment</span>
+                <span className="text-xs font-bold text-slate-700">{job.location || "Nairobi, KE"}</span>
+              </div>
+              
+              <Button
+                onClick={() => handleApply(job)}
+                disabled={submittingId === job.id}
+                className="h-9 px-4 rounded-xl text-[11px]"
+              >
+                {submittingId === job.id ? 'Casting...' : 'Transmit Pitch'}
+              </Button>
+            </div>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 }

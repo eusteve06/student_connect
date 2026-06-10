@@ -1,30 +1,35 @@
 // middleware/authMiddleware.js
 import jwt from 'jsonwebtoken';
-import User from '../models/User.js';
+import { findAccountById } from '../data/accounts.js';
 
+// Verifies the Bearer token and injects the matching account onto req.user.
 export const protect = async (req, res, next) => {
-  let token;
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-    try {
-      token = req.headers.authorization.split(' ')[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      
-      // Inject the user object (minus the password hash) into the request context
-      req.user = await User.findById(decoded.id).select('-password');
-      return next();
-    } catch (error) {
-      return res.status(401).json({ message: 'Security check failed: Token validation corrupted' });
-    }
+  const header = req.headers.authorization || '';
+
+  if (!header.startsWith('Bearer ')) {
+    return res.status(401).json({ message: 'Authorization rejected: access token missing.' });
   }
-  if (!token) return res.status(401).json({ message: 'Authorization rejected: Access token token missing' });
+
+  try {
+    const token = header.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const account = await findAccountById(decoded.role, decoded.id);
+
+    if (!account) {
+      return res.status(401).json({ message: 'Authorization rejected: account no longer exists.' });
+    }
+
+    req.user = account;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: 'Security check failed: token validation corrupted.' });
+  }
 };
 
-// Multi-Tenant Gatekeeper Filter Engine
-export const authorizeRoles = (...roles) => {
-  return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return res.status(403).json({ message: `Access Denied: Role [${req.user.role}] unauthorized for this pipeline.` });
-    }
-    next();
-  };
+// Role gatekeeper — usage: authorizeRoles('firm', 'university')
+export const authorizeRoles = (...roles) => (req, res, next) => {
+  if (!req.user || !roles.includes(req.user.role)) {
+    return res.status(403).json({ message: 'Access denied: role unauthorized for this pipeline.' });
+  }
+  next();
 };
