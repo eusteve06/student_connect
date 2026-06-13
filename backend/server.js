@@ -13,7 +13,7 @@ process.env.JWT_SECRET = process.env.JWT_SECRET || process.env.JSON_SECRET_KEY |
 
 const app = express();
 
-.
+
 app.use(cors());
 app.use(express.json());
 
