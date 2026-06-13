@@ -166,8 +166,9 @@ export default function StudentAuth() {
             <p className="text-xs text-slate-400 font-medium">
               Are you an attachment coordinator or corporate administrator? <br />
               <span className="inline-block mt-3 text-slate-500 font-medium">
-                Switch to <a href="/login/firm" className="text-slate-900 font-bold hover:text-emerald-600 transition-colors underline decoration-slate-300 underline-offset-4">Corporate Gate</a> or{' '}
-                <a href="/login/university" className="text-slate-900 font-bold hover:text-emerald-600 transition-colors underline decoration-slate-300 underline-offset-4">Faculty Portal</a>
+                Switch to <a href="/login/firm" className="text-slate-900 font-bold hover:text-emerald-600 transition-colors underline decoration-slate-300 underline-offset-4">Corporate Gate</a>,{' '}
+                <a href="/login/university" className="text-slate-900 font-bold hover:text-emerald-600 transition-colors underline decoration-slate-300 underline-offset-4">Faculty Portal</a> or{' '}
+                <a href="/login/admin" className="text-slate-900 font-bold hover:text-rose-600 transition-colors underline decoration-slate-300 underline-offset-4">System Admin</a>
               </span>
             </p>
           </div>

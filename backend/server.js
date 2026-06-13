@@ -8,12 +8,12 @@ import { initDb } from './data/db.js';
 
 dotenv.config();
 
-// Ensure a JWT secret always exists so auth never crashes in dev.
+
 process.env.JWT_SECRET = process.env.JWT_SECRET || process.env.JSON_SECRET_KEY || 'dev-only-insecure-secret';
 
 const app = express();
 
-// Global CORS — allows the Vite dev server (and any origin in dev) to call the API.
+.
 app.use(cors());
 app.use(express.json());
 
@@ -26,9 +26,6 @@ app.use((req, _res, next) => {
 // Health check.
 app.get('/', (_req, res) => res.send('Industrial Attachment API Engine Operational.'));
 
-// Mount the full API. The frontend's studentService/universityService call
-// `/api/v1/...`, while firmService calls `/firm/...` directly — so we mount the
-// same router at both the versioned prefix and the root to satisfy both.
 app.use('/api/v1', apiRouter);
 app.use('/', apiRouter);
 
