@@ -1,5 +1,5 @@
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import AssetPlaceholder from '../common/AssetPlaceholder';
+import AssetPlaceholder from '../common/assetPlaceholder';
 
 export default function DashboardLayout({ children, role = 'student' }) {
   const location = useLocation();
