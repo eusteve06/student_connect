@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Button from '../../../components/common/Button';
-import AssetPlaceholder from '../../../components/common/AssetPlaceholder';
+import AssetPlaceholder from '../../../components/common/assetPlaceholder';
 import { studentService } from '../../../service/studentService';
 
 export default function StudentMarketplace() {
