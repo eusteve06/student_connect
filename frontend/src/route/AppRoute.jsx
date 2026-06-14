@@ -15,7 +15,7 @@ import AdminAuth from '../features/admin/AdminAuth';
 // Feature Views
 import StudentDashboard from '../features/student/views/StudentDashboard';
 import StudentMarketplace from '../features/student/views/StudentMarketplace';
-import StudentLogbook from '../features/student/views/StudentLogbook'; // <-- IMPORT CORE VIEW
+import StudentLogbook from '../features/student/views/StudentLogBook'; // <-- IMPORT CORE VIEW
 import FirmDashboard from '../features/firm/views/FirmDashboard';
 import UniversityDashboard from '../features/university/views/UniversityDashboard';
 import AdminDashboard from '../features/admin/views/AdminDashboard';
